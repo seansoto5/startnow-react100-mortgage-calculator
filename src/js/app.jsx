@@ -20,36 +20,38 @@ export default class App extends React.Component {
         </div>
         <div className='row'>
           <div className='col-xs-3'>
-          <h4>
+            <h4>
             Loan Balance
-          </h4>
+            </h4>
           </div>
           <div className='col-xs-6'>
-            <input className='balance' type='number'>
+            <input className='balance' type='number'placeholder='0'>
             </input>
           </div>
           <div className='col-xs-3'></div>
         </div>
         <div className='row'>
           <div className='col-xs-3'>
-          <h4>
+            <h4>
             Interest Rate (%)
-          </h4>
+            </h4>
           </div>
           <div className='col-xs-6'>
-            <input className='rate' type='number'>
+            <input className='rate' type='number'placeholder='0'>
             </input>
           </div>
           <div className='col-xs-3'></div>
         </div>
         <div className='row'>
           <div className='col-xs-3'>
-          <h4>
+            <h4>
             Loan Term (Years)
-          </h4>
+            </h4>
           </div>
           <div className='col-xs-6'>
           <select className='term' placeholder="Select term">
+            <option>15</option>
+            <option value={}>30</option>
           </select>
           </div>
           <div className='col-xs-3'></div>
@@ -72,7 +74,4 @@ export default class App extends React.Component {
   }
 }
 
-// ReactDOM.render(
-//   <App />,
-//   document.getElementById('root')
-// );
+
