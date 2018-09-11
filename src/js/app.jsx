@@ -17,30 +17,40 @@ export default class App extends React.Component {
 
   updateLoanBalance() {
     this.setState({
-      loanBalance: 'code here'
+      loanBalance: ''
     })
   }
   updateInterestRate() {
     this.setState({
-      interestRate: 'code here'
+      interestRate: ''
     })
   }
   updateTerm() {
     this.setState({
-      term: 'code here'
+      term: ''
     })
   }
   updateMonthlyPayment() {
     this.setState({
-      monthlyPayment: 'code here'
+      monthlyPayment: ''
     })
   }
 
   calculate() {
-    //CalculateFunction
+
+    let loanBalance = this.state.loanBalance;
+    let interestRate = this.state.interestRate;
+    let term = this.state.term;
+
+    let o = interestRate / 100 / 12;
+    let month = term * 12;
+    let topEq = o * Math.pow((1 + o), month);
+    let botEq = Math.pow((1 + o), month) - 1;
+    let m = loanBalance * (topEq / botEq);
+    let answer = m.toFixed(2);
 
     this.setState({
-      monthlyPayment: '??? Is your monthly payment'
+      monthlyPayment: '$' + answer + ' is your monthly payment.'
     })
   }
 
@@ -56,6 +66,7 @@ export default class App extends React.Component {
             </h1><hr></hr>
           </div>
         </div>
+
         <div className='row'>
           <div className='col-xs-3'>
             <h4>
@@ -64,31 +75,32 @@ export default class App extends React.Component {
           </div>
           <div className='col-xs-6'>
             <input 
-              className     ='balance' 
-              type          ='number'
-              placeholder   ='Enter amount'
-              id            ='Loan Balance'
-              value         ={this.state.loanBalance}>
+              name = 'balance' 
+              type = 'number'
+              value  = 'Loan Balance'>
             </input>
           </div>
           <div className='col-xs-3'></div>
         </div>
+
         <div className='row'>
           <div className='col-xs-3'>
             <h4>
-            Interest Rate (%)
+            Interest Rate (APR)
             </h4>
           </div>
           <div className='col-xs-6'>
             <input 
-              className     ='rate' 
-              type          ='number'
-              placeholder   ='0'
-              value         ={this.state.interestRate}>
+              name = 'rate' 
+              type = 'number'
+              step = '0.01'
+              placeholder ='0'
+              value = {this.state.interestRate}>
             </input>
           </div>
           <div className='col-xs-3'></div>
         </div>
+
         <div className='row'>
           <div className='col-xs-3'>
             <h4>
@@ -97,26 +109,33 @@ export default class App extends React.Component {
           </div>
           <div className='col-xs-6'>
           <select 
-            className       ='term' 
-            placeholder     ="Select term"
-            value           ={this.state.term}>
-            <option>15</option>
-            <option>30</option>
+            name ='term'
+            type ='number' 
+            placeholder ="Select term">
+            <option value='15'>15</option>
+            <option value='30'>30</option>
           </select>
           </div>
           <div className='col-xs-3'></div>
         </div>
+
         <div className='row'>
           <div className='col-xs-12'>
-            <button className='submit' type='button' onClick=''>
-            Submit
+            <button 
+              className ='submit' 
+              type ='submit' 
+              onClick =''
+              >Calculate
             </button>
           </div>
         </div>
         <div className='row'>
             <div className='col-xs-12'>
-              <p className='output' id='output'>
-              </p>
+              <div 
+                className='output' 
+                id='output'>
+                <p>{this.state.payment}</p>
+              </div>
             </div>
         </div>
       </div>
