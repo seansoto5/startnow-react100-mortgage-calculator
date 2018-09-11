@@ -4,9 +4,47 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-
+      loanBalance: '',
+      interestRate: '',
+      term: '',
+      monthlyPayment: '',
     };
+    this.updateLoanBalance = this.updateLoanBalance.bind(this);
+    this.updateInterestRate = this.updateInterestRate.bind(this);
+    this.updateTerm = this.updateTerm.bind(this);
+    this.updateMonthlyPayment = this.updateMonthlyPayment.bind(this);
   }
+
+  updateLoanBalance() {
+    this.setState({
+      loanBalance: 'code here'
+    })
+  }
+  updateInterestRate() {
+    this.setState({
+      interestRate: 'code here'
+    })
+  }
+  updateTerm() {
+    this.setState({
+      term: 'code here'
+    })
+  }
+  updateMonthlyPayment() {
+    this.setState({
+      monthlyPayment: 'code here'
+    })
+  }
+
+  calculate() {
+    //CalculateFunction
+
+    this.setState({
+      monthlyPayment: '??? Is your monthly payment'
+    })
+  }
+
+
 
   render() {
     return (
@@ -25,7 +63,12 @@ export default class App extends React.Component {
             </h4>
           </div>
           <div className='col-xs-6'>
-            <input className='balance' type='number'placeholder='0'>
+            <input 
+              className     ='balance' 
+              type          ='number'
+              placeholder   ='Enter amount'
+              id            ='Loan Balance'
+              value         ={this.state.loanBalance}>
             </input>
           </div>
           <div className='col-xs-3'></div>
@@ -37,7 +80,11 @@ export default class App extends React.Component {
             </h4>
           </div>
           <div className='col-xs-6'>
-            <input className='rate' type='number'placeholder='0'>
+            <input 
+              className     ='rate' 
+              type          ='number'
+              placeholder   ='0'
+              value         ={this.state.interestRate}>
             </input>
           </div>
           <div className='col-xs-3'></div>
@@ -49,9 +96,12 @@ export default class App extends React.Component {
             </h4>
           </div>
           <div className='col-xs-6'>
-          <select className='term' placeholder="Select term">
+          <select 
+            className       ='term' 
+            placeholder     ="Select term"
+            value           ={this.state.term}>
             <option>15</option>
-            <option value={}>30</option>
+            <option>30</option>
           </select>
           </div>
           <div className='col-xs-3'></div>
