@@ -4,69 +4,58 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      loanBalance: '',
-      interestRate: '',
+      balance: '',
+      rate: '',
       term: '',
-      monthlyPayment: '',
-    };
-    this.updateLoanBalance = this.updateLoanBalance.bind(this);
-    this.updateInterestRate = this.updateInterestRate.bind(this);
+      payment: ''};
+
+    this.updateBalance = this.updateBalance.bind(this);
+    this.updateRate = this.updateRate.bind(this);
     this.updateTerm = this.updateTerm.bind(this);
-    this.updateMonthlyPayment = this.updateMonthlyPayment.bind(this);
+    this.updatePayment = this.updatePayment.bind(this);
+    this.calculate = this.calculate.bind(this);
+  }
+  
+  updateBalance(e) {
+    this.setState({balance: event.target.value})
+  }
+  updateRate(e) {
+    this.setState({rate: event.target.value})
+  }
+  updateTerm(e) {
+    this.setState({term: event.target.value})
+  }
+  updatePayment(e) {
+    this.setState({payment: event.target.value})
   }
 
-  updateLoanBalance() {
-    this.setState({
-      loanBalance: ''
-    })
-  }
-  updateInterestRate() {
-    this.setState({
-      interestRate: ''
-    })
-  }
-  updateTerm() {
-    this.setState({
-      term: ''
-    })
-  }
-  updateMonthlyPayment() {
-    this.setState({
-      monthlyPayment: ''
-    })
-  }
-
-  calculate() {
-
-    let loanBalance = this.state.loanBalance;
-    let interestRate = this.state.interestRate;
+  calculate(e) {
+    e.preventDefault();
+    let balance = this.state.balance;
+    console.log(balance);
+    let rate = this.state.rate;
+    console.log(rate);
     let term = this.state.term;
+    console.log(term);
 
-    let o = interestRate / 100 / 12;
-    let month = term * 12;
-    let topEq = o * Math.pow((1 + o), month);
-    let botEq = Math.pow((1 + o), month) - 1;
-    let m = loanBalance * (topEq / botEq);
-    let answer = m.toFixed(2);
+    let i = rate / 100 / 12;
+    let n = 12 * term;
+    let equationOne = 1 - Math.pow((1 + i), -n);
+    let equationTwo = equationOne / i;
+    let r = balance / equationTwo;
+    let answer = r.toFixed(2);
 
     this.setState({
-      monthlyPayment: '$' + answer + ' is your monthly payment.'
+      payment: '$' + answer + ' is your monthly payment'
     })
   }
-
-
 
   render() {
     return (
       <div className='container'>
-        <div className='row'>
-          <div className='col-xs-12'>
-            <h1>
-              Mortgage Calculator
-            </h1><hr></hr>
-          </div>
-        </div>
-
+        <h1>
+          Mortgage Calculator
+        </h1><hr></hr>
         <div className='row'>
           <div className='col-xs-3'>
             <h4>
@@ -77,12 +66,13 @@ export default class App extends React.Component {
             <input 
               name = 'balance' 
               type = 'number'
-              value  = 'Loan Balance'>
+              value  = {this.state.balance}
+              onChange = {this.updateBalance}
+              placeholder = 'Enter Amount'>
             </input>
           </div>
           <div className='col-xs-3'></div>
         </div>
-
         <div className='row'>
           <div className='col-xs-3'>
             <h4>
@@ -94,13 +84,13 @@ export default class App extends React.Component {
               name = 'rate' 
               type = 'number'
               step = '0.01'
-              placeholder ='0'
-              value = {this.state.interestRate}>
+              placeholder ='Enter Amount'
+              value = {this.state.rate}
+              onChange = {this.updateRate}>
             </input>
           </div>
           <div className='col-xs-3'></div>
         </div>
-
         <div className='row'>
           <div className='col-xs-3'>
             <h4>
@@ -110,21 +100,20 @@ export default class App extends React.Component {
           <div className='col-xs-6'>
           <select 
             name ='term'
-            type ='number' 
-            placeholder ="Select term">
+            type ='number'
+            onChange = {this.updateTerm}>
             <option value='15'>15</option>
             <option value='30'>30</option>
           </select>
           </div>
           <div className='col-xs-3'></div>
         </div>
-
         <div className='row'>
           <div className='col-xs-12'>
             <button 
-              className ='submit' 
+              name ='submit' 
               type ='submit' 
-              onClick =''
+              onClick = {this.calculate}
               >Calculate
             </button>
           </div>
@@ -132,8 +121,9 @@ export default class App extends React.Component {
         <div className='row'>
             <div className='col-xs-12'>
               <div 
-                className='output' 
-                id='output'>
+                name = 'output'
+                id = 'output'
+                onChange = {this.updatePayment}>
                 <p>{this.state.payment}</p>
               </div>
             </div>
@@ -142,5 +132,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-
